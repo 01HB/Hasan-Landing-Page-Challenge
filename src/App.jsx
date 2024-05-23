@@ -1,6 +1,7 @@
 import Header from "./components/Header";
 import Banner from "./components/Banner";
 import BuySteps from "./components/BuySteps";
+import DiscountProducts from "./components/DiscountProducts";
 
 const App = () => {
 
@@ -11,6 +12,7 @@ const App = () => {
           <Header />
           <Banner />
           <BuySteps />
+          <DiscountProducts />
         </div>
       </div>
     </>
