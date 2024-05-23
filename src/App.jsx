@@ -1,5 +1,6 @@
 import Header from "./components/Header";
 import Banner from "./components/Banner";
+import BuySteps from "./components/BuySteps";
 
 const App = () => {
 
@@ -9,6 +10,7 @@ const App = () => {
         <div id='page_container' className="w-full max-w-[1800px] flex flex-col items-center">
           <Header />
           <Banner />
+          <BuySteps />
         </div>
       </div>
     </>
