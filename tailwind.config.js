@@ -12,10 +12,12 @@ export default {
     extend: {
       fontFamily: {
         inter: ["Inter", ...defaultTheme.fontFamily.sans],
+        jost: ["Jost", ...defaultTheme.fontFamily.sans],
       },
     },
   },
   
-  plugins: [],
+  plugins: [
+  ],
 }
 
