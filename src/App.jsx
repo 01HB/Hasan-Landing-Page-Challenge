@@ -2,6 +2,7 @@ import Header from "./components/Header";
 import Banner from "./components/Banner";
 import BuySteps from "./components/BuySteps";
 import DiscountProducts from "./components/DiscountProducts";
+import AboutUs from "./components/AboutUs";
 
 const App = () => {
 
@@ -13,6 +14,7 @@ const App = () => {
           <Banner />
           <BuySteps />
           <DiscountProducts />
+          <AboutUs />
         </div>
       </div>
     </>
