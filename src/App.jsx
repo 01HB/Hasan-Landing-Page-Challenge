@@ -3,6 +3,8 @@ import Banner from "./components/Banner";
 import BuySteps from "./components/BuySteps";
 import DiscountProducts from "./components/DiscountProducts";
 import AboutUs from "./components/AboutUs";
+import Products from "./components/Products";
+import Footer from "./components/Footer";
 
 const App = () => {
 
@@ -15,6 +17,8 @@ const App = () => {
           <BuySteps />
           <DiscountProducts />
           <AboutUs />
+          <Products />
+          <Footer />
         </div>
       </div>
     </>
