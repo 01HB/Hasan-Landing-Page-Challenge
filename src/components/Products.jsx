@@ -4,8 +4,9 @@ import vincentsunglasses from "../assets/products_disp/vincent_chase.svg";
 import tommyhilfigersunglasses from "../assets/products_disp/tommy_hilfiger.svg";
 import raybansunglasses from "../assets/products_disp/ray_ban.svg";
 import { useState } from "react";
+import PropTypes from 'prop-types';
 
-const Products = () => {
+const Products = ({ countfn, cartitemsfn }) => {
     const [activeFilter, setActiveFilter] = useState("latest");
 
     // eslint-disable-next-line no-unused-vars
@@ -66,6 +67,33 @@ const Products = () => {
         // filter products based on the applied value
     };
 
+    const handleAddtoCart = (pr) => {
+        if (typeof window !== "undefined") {
+            let cartItems = JSON.parse(sessionStorage.getItem("cartitems"));
+            if (cartItems) {
+                let existingproduct = cartItems.find(p => p.id === pr.id);
+                if (existingproduct) {
+                    existingproduct.quantity += 1;
+                } else {
+                    pr.quantity = 1;
+                    cartItems.push(pr);
+                }
+                sessionStorage.setItem("cartitems", JSON.stringify(cartItems));
+                sessionStorage.setItem("count", cartItems.length);
+                cartitemsfn(cartItems);
+                countfn(cartItems.length);
+            } else {
+                cartItems = [];
+                pr.quantity = 1;
+                cartItems.push(pr);
+                sessionStorage.setItem("cartitems", JSON.stringify(cartItems));
+                sessionStorage.setItem("count", cartItems.length);
+                cartitemsfn(cartItems);
+                countfn(cartItems.length);
+            }
+        }
+    };
+
 
     return (
         <>
@@ -79,9 +107,9 @@ const Products = () => {
                             </p>
                         </div>
                         <div id="products_filters" className="w-full md:w-fit flex justify-end items-end gap-[10px] text-[12px] leading-[20px] md:text-[14px] md:leading-[22px] 2xl:text-[16px] 2xl:leading-[26px] font-[400] text-[#383838]">
-                            <button onClick={() => handleFilterChange('latest')} className={`w-fit h-fit rounded-[5px] border ${activeFilter === 'latest' ? 'border-[#545454]' : 'border-transparent' } px-3 lg:px-5 py-[5px] transition duration-300`}>Latest</button>
-                            <button onClick={() => handleFilterChange('special')} className={`w-fit h-fit rounded-[5px] border ${activeFilter === 'special' ? 'border-[#545454]' : 'border-transparent' } px-3 lg:px-5 py-[5px] transition duration-300`}>Special</button>
-                            <button onClick={() => handleFilterChange('best_sell')} className={`w-fit h-fit rounded-[5px] border ${activeFilter === 'best_sell' ? 'border-[#545454]' : 'border-transparent' } px-3 lg:px-5 py-[5px] transition duration-300`}>Best sell</button>
+                            <button onClick={() => handleFilterChange('latest')} className={`w-fit h-fit rounded-[5px] border ${activeFilter === 'latest' ? 'border-[#545454]' : 'border-transparent'} px-3 lg:px-5 py-[5px] transition duration-300`}>Latest</button>
+                            <button onClick={() => handleFilterChange('special')} className={`w-fit h-fit rounded-[5px] border ${activeFilter === 'special' ? 'border-[#545454]' : 'border-transparent'} px-3 lg:px-5 py-[5px] transition duration-300`}>Special</button>
+                            <button onClick={() => handleFilterChange('best_sell')} className={`w-fit h-fit rounded-[5px] border ${activeFilter === 'best_sell' ? 'border-[#545454]' : 'border-transparent'} px-3 lg:px-5 py-[5px] transition duration-300`}>Best sell</button>
                         </div>
                     </div>
                     {
@@ -93,7 +121,7 @@ const Products = () => {
                                             <div key={`pr_${index}`} className="flex flex-col min-w-[250px] max-w-[417px] h-fit min-h-[480px] min-[500px]:min-w-[350px] min-[500px]:min-h-[520px] md:min-w-[250px] 2xl:min-w-[300px] 2xl:min-h-[550px] 3xl:min-w-[417px] 3xl:min-h-[636px] rounded-[5px] overflow-hidden">
                                                 <div className="relative w-full h-[400px] md:h-[425px] 2xl:h-[450px] 3xl:h-[471px] flex justify-center items-center bg-[#F7F7F7]">
                                                     <img src={product.prod_img} alt={`product ${product.id} image`} className="w-full max-w-[343px] h-auto object-contain" />
-                                                    { product.discount && <div className="absolute top-[30px] left-[30px] flex justify-center items-center w-[40px] h-[40px] md:w-[50px] md:h-[50px] 2xl:w-[60px] 2xl:h-[60px] rounded-full bg-[#FED29C] text-[12px] leading-[16px] md:text-[14px] md:leading-[19px] 2xl:text-[16px] 2xl:leading-[23px] font-[700] text-[#383838]">{product.discount}</div> }
+                                                    {product.discount && <div className="absolute top-[30px] left-[30px] flex justify-center items-center w-[40px] h-[40px] md:w-[50px] md:h-[50px] 2xl:w-[60px] 2xl:h-[60px] rounded-full bg-[#FED29C] text-[12px] leading-[16px] md:text-[14px] md:leading-[19px] 2xl:text-[16px] 2xl:leading-[23px] font-[700] text-[#383838]">{product.discount}</div>}
                                                     <button className="absolute top-[30px] right-[30px] flex justify-center items-center w-[40px] h-[40px] md:w-[50px] md:h-[50px] 2xl:w-[60px] 2xl:h-[60px] rounded-full border border-[#545454] hover:bg-[#e8e8e8] transition duration-200">
                                                         <img src={favhearticon} alt="add to favorites" className="w-[18px] md:w-[24px] 2xl:w-[30px] h-auto object-contain" />
                                                     </button>
@@ -102,9 +130,9 @@ const Products = () => {
                                                     <p className="w-fit h-fit mb-[10px] text-[20px] leading-[28px] md:text-[26px] md:leading-[34px] 2xl:text-[30px] 2xl:leading-[40px] font-[400] text-[#383838]">{product.name}</p>
                                                     <div className="flex items-center gap-4 mb-5">
                                                         <p className="text-[15px] leading-[20px] md:text-[17px] md:leading-[24px] 2xl:text-[20px] 2xl:leading-[30px] font-[700] text-[#383838]">{product.price}</p>
-                                                        { product.prev_price && <p className="text-[15px] leading-[20px] md:text-[17px] md:leading-[24px] 2xl:text-[20px] 2xl:leading-[30px] font-[400] text-[#545454] line-through">{product.prev_price}</p> }
+                                                        {product.prev_price && <p className="text-[15px] leading-[20px] md:text-[17px] md:leading-[24px] 2xl:text-[20px] 2xl:leading-[30px] font-[400] text-[#545454] line-through">{product.prev_price}</p>}
                                                     </div>
-                                                    <button className="w-fit h-fit text-[15px] leading-[20px] md:text-[17px] md:leading-[24px] 2xl:text-[20px] 2xl:leading-[30px] font-[400] text-[#383838] hover:underline hover:underline-offset-2 transition-all duration-300">Add To Cart</button>
+                                                    <button onClick={() => handleAddtoCart(product)} className="w-fit h-fit text-[15px] leading-[20px] md:text-[17px] md:leading-[24px] 2xl:text-[20px] 2xl:leading-[30px] font-[400] text-[#383838] hover:underline hover:underline-offset-2 transition-all duration-300">Add To Cart</button>
                                                 </div>
                                             </div>
                                         )
@@ -126,3 +154,8 @@ const Products = () => {
 }
 
 export default Products;
+
+Products.propTypes = {
+    countfn: PropTypes.func.isRequired,
+    cartitemsfn: PropTypes.func.isRequired,
+};
