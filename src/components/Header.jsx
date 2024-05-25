@@ -12,10 +12,10 @@ const Header = () => {
                 <div id='menu_text' className='hidden xl:flex items-center w-fit h-[47px] gap-[30px] font-jost text-[#383838] text-[16px] leading-[24px] 2xl:text-[20px] 2xl:leading-[30px] font-[400]'>
                     <a href='#' draggable={false}>Home</a>
                     <a href='#about-us' draggable={false}>About Us</a>
-                    <a href='#' draggable={false}>Products</a>
+                    <a href='#products' draggable={false}>Products</a>
                     <a href='#' draggable={false}>Features</a>
                     <a href='#' draggable={false}>Reviews</a>
-                    <a href='#' draggable={false}>Contact Us</a>
+                    <a href='#footer' draggable={false}>Contact Us</a>
                 </div>
                 <div id="menu_icons" className='absolute top-[30px] right-[20px] sm:right-[40px] md:right-[60px] 2xl:right-[90px] flex w-fit h-[47px] items-center gap-5'>
                     <button className="flex w-fit h-[30px] items-center overflow-hidden bg-transparent">

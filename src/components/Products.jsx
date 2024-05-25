@@ -8,6 +8,7 @@ import { useState } from "react";
 const Products = () => {
     const [activeFilter, setActiveFilter] = useState("latest");
 
+    // eslint-disable-next-line no-unused-vars
     const [products, setProducts] = useState([
         {
             id: 1,
